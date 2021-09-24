@@ -11,9 +11,10 @@
     "core-js": "^3.6.5",
     "v-viewer": "^1.6.4",
     "vue": "^2.6.11",
+    "vue-browser-geolocation": "^1.8.0",
     "vue-router": "^3.2.0",
-    "vuetify": "^2.4.0",
-    "yarn": "^1.22.11"
+    "vue2-google-maps": "^0.10.7",
+    "vuetify": "^2.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
