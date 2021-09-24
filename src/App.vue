@@ -5,7 +5,7 @@
 
       <v-navigation-drawer v-model="drawer" app>
         <!-- la bar -->
-       <NavigationBar/>
+       <NavigationBar @showbar="showBarConf" />
       </v-navigation-drawer>
 
       <v-app-bar app>
@@ -13,7 +13,7 @@
            
         <!--<v-toolbar-title>Application</v-toolbar-title>-->
 
-        <v-row justify="start">
+        <v-row justify="start" v-show="showBar">
             <v-btn class="ma-2" color="secondary" >NOUVEAU CLIENT PENDING</v-btn>
             <v-btn class="ma-2" color="secondary" >CLIENT EN ALERTE</v-btn>
             <v-btn class="ma-2" color="secondary" >CLIENT EN ATTENTE D'UPGRATE</v-btn>
@@ -61,15 +61,16 @@
           console.log("yes");
           console.log(this.isLogin);
       }, 
-      showBarConf(val){
-        this.showBarConf = val;
+      showBarConf(payload){
+        console.log('conformite');
+        this.showBar = payload.show;
       }
     },
     data: () => ({
       drawer: null,
       isLogin:true,
       info: null,
-      showBarConf : false
+      showBar : false
       }),
    
   }
