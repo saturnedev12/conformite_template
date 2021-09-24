@@ -2,50 +2,32 @@
   <div>
     {{ info }}
     <v-app id="inspire" v-show="isLogin">
-      <v-navigation-drawer
-        v-model="drawer"
-        app color="orange">
+
+      <v-navigation-drawer v-model="drawer" app>
         <!-- la bar -->
-        <v-list
-          nav
-          dense
-        >
-          <v-list-item-group
-            v-model="group"
-            active-class="deep-purple--text text--accent-4"
-          >
-            
-            <router-link to="/">
-              <v-list-item>
-                <v-list-item-icon>
-                  <v-icon>mdi-home</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title>Home</v-list-item-title>
-              </v-list-item>
-            </router-link>
-            
-            <router-link to="/conformite">
-                <v-list-item>
-                  <v-list-item-icon>
-                    <v-icon>mdi-account</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-title>Conformitesss</v-list-item-title>
-                </v-list-item>
-            </router-link>
-
-            
-
-          
-
-          </v-list-item-group>
-        </v-list>
+       <NavigationBar @showbar="showBarConf" />
       </v-navigation-drawer>
 
       <v-app-bar app>
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+           
+        <!--<v-toolbar-title>Application</v-toolbar-title>-->
 
-        <v-toolbar-title>Application</v-toolbar-title>
+        <v-row justify="start" v-show="showBar">
+            <v-btn class="ma-2" color="secondary" >NOUVEAU CLIENT PENDING</v-btn>
+            <v-btn class="ma-2" color="secondary" >CLIENT EN ALERTE</v-btn>
+            <v-btn class="ma-2" color="secondary" >CLIENT EN ATTENTE D'UPGRATE</v-btn>
+            <v-btn class="ma-2" color="secondary" >CONTROLE ALEATOIRE</v-btn>
+        </v-row>
+
+          <v-img
+                max-height="50"
+                max-width="50"
+                src="./assets/assets_images_uniskip_logo.svg"
+          ></v-img>
       </v-app-bar>
+
+
       <v-main>
         <!-- Core Page -->
         <router-view/>
@@ -64,10 +46,12 @@
 <script>
   import Login from './views/Login.vue'
   import Network from './class/Network'
+  import NavigationBar from './components/NavigationBar.vue'
   const network = new Network();
   export default {
     components:{
-      Login
+      Login,
+      NavigationBar,
     },
     methods: {
       async checkUser(payload){
@@ -76,28 +60,18 @@
           this.isLogin = await network.login(payload.email,payload.password);
           console.log("yes");
           console.log(this.isLogin);
-      },
+      }, 
+      showBarConf(payload){
+        console.log('conformite');
+        this.showBar = payload.show;
+      }
     },
     data: () => ({
-      drawer: null, 
+      drawer: null,
       isLogin:true,
       info: null,
-      token : localStorage.token
+      showBar : false
       }),
-    async mounted(){
-       if (localStorage.token != "" && localStorage.token != null && (typeof localStorage.token === 'string' || localStorage.token instanceof String)) {
-         this.isLogin = !this.isLogin;
-       }
-       //this.isLogin = network.getFonctionnalite();
-      //console.log(network.hello());
-      console.log(`test api ${ await network.getFonctionnalite()}`);
-
-    },
-    watch:{
-      name(){
-        this.allow();
-      }
-    }
-    
+   
   }
 </script>
