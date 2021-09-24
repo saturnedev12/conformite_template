@@ -14,11 +14,7 @@ const routes = [
     path: '/conformite',
     name: 'Conformite',
     component: Conformite
-<<<<<<< HEAD
-  },
-=======
   }
->>>>>>> 67b0efe1c4b9a79817ec70d2440067d2e3f8e18f
 ]
 
 const router = new VueRouter({
